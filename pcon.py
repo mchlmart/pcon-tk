@@ -13,7 +13,7 @@ instrument = minimalmodbus.Instrument('COM5', 2, mode=minimalmodbus.MODE_RTU)
 drg1_register = 0x0D00
 dss1_register = 0x9005
 def status():
-    s = instrument.read_register(0x9005)       # DSS1
+    s = instrument.read_register(dss1_register)
     return {
         "servo_on":      bool(s & (1 << 12)),
         "alarm_major":   bool(s & (1 << 10)),
@@ -39,7 +39,6 @@ def servo_on():
                 st = status()
                 if st["alarm_minor"] or st["alarm_major"]:
                      return f"alarm {alarm_st} not cleared, code: {hex(instrument.read_register(0x9002))}"
-            #value to reset the alarm and set the servo on
             ars_value = 0x1000
             instrument.write_register(drg1_register,ars_value,functioncode=6)
             if alarm_st:
@@ -59,7 +58,6 @@ def homing():
                 st = status()
                 if st["alarm_minor"] or st["alarm_major"]:
                         return f"alarm {alarm_st} not cleared, code: {hex(instrument.read_register(0x9002))}"
-            #value to reset the alarm and set the servo on
             homing_value = 0x1010
             instrument.write_register(drg1_register,homing_value,functioncode=6)
             if alarm_st:
