@@ -2,14 +2,14 @@ import minimalmodbus
 import serial
 import time
 
-minimalmodbus.BAUDRATE = 38400       
-minimalmodbus.BYTESIZE = 8            
+instrument = minimalmodbus.Instrument('COM5', 2, mode=minimalmodbus.MODE_RTU)
+minimalmodbus.BAUDRATE = 38400
+minimalmodbus.PARITY = serial.PARITY_NONE      
+minimalmodbus.BYTESIZE = 8
 minimalmodbus.STOPBITS = 1            
-minimalmodbus.TIMEOUT = 1             
-minimalmodbus.PARITY = serial.PARITY_NONE
+minimalmodbus.TIMEOUT = 0.5    
 minimalmodbus.CLOSE_PORT_AFTER_EACH_CALL = True
 
-instrument = minimalmodbus.Instrument('COM5', 2, mode=minimalmodbus.MODE_RTU)
 drg1_register = 0x0D00
 dss1_register = 0x9005
 def status():
