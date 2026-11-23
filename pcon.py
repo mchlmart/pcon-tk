@@ -38,7 +38,7 @@ def servo_on():
                 reset_alarm()
                 st = status()
                 if st["alarm_minor"] or st["alarm_major"]:
-                     return f"alarm {alarm_st} not cleared, code: {hex(instrument.read_register(0x9002))}"
+                     return f"alarm {alarm_st} not cleared, code: {hex(instrument.read_register(0x9002))}"  
             ars_value = 0x1000
             instrument.write_register(drg1_register,ars_value,functioncode=6)
             if alarm_st:

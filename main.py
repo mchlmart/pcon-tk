@@ -1,5 +1,8 @@
 import tkinter as tk
 import pcon
+import datetime
+
+now = datetime.datetime.now()
 
 class GUI:
     def __init__(self):
@@ -12,14 +15,14 @@ class GUI:
         self.button_servo.place(x=self.width-20-self.button_width, y=(1/3)*self.height,width=self.button_width)
         self.button_homing = tk.Button(self.root,text="homing",font=("Times",15),command=self.homing)
         self.button_homing.place(x=self.width-20-self.button_width, y=(1/3)*self.height+50,width=self.button_width)
-        self.log_box = tk.Text(self.root,font=("Times",15),state="disabled")
+        self.log_box = tk.Text(self.root,font=("Times",7),state="disabled")
         self.log_box.place(x = 20, y = 2*self.height/3,width=self.width - self.button_width-60,height=self.height/3-20)
         
         self.root.mainloop()
 
     def log(self,text):
         self.log_box.config(state="normal")
-        self.log_box.insert("end",text + "\n")
+        self.log_box.insert("end",f"{now.strftime('%H:%M:%S')} {text}\n")
         self.log_box.see("end")
         self.log_box.config(state="disabled")
 
